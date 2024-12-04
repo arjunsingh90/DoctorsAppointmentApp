@@ -1,9 +1,11 @@
-import mongoose, { mongo } from "mongoose";
-const connectDB = async () =>{
+import mongoose from "mongoose";
 
-  mongoose.connection.on('connected', ()=> console.log("Database Connected")); 
+const connectDB = async () => {
+  // Event listener for successful connection
+  mongoose.connection.on('connected', () => console.log("Database Connected"));
 
-  await mongoose.connect(`${process.env.MONGODB_URI}/Quick Doc Connect`)
-}
+  // Correct connection string without the database name in the URL path
+  await mongoose.connect(process.env.MONGODB_URI);
+};
 
-export default connectDB
+export default connectDB;
