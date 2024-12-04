@@ -6,10 +6,16 @@ import doctorModel from "../models/doctorModel.js";
 
 // Api for adding doctor
 const addDoctor = async (req, res) => {
+    console.log(req.body);
+    console.log(req.file);
     try {
         const { name, email, password, speciality, degree, experience, about, fees, address } = req.body;
+        
+        if (!req.file) {
+            return res.status(400).json({ success: false, message: "No image uploaded" });
+        }
         const imageFile = req.file;
-
+        
         // Validate required fields
         if (!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address) {
             return res.status(400).json({ success: false, message: "Missing details" });
